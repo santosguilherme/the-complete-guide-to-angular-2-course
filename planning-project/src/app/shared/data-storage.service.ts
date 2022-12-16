@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 import { RecipeService } from "../recipes/recipe.service";
 import { Recipe } from "../recipes/recipe.model";
-import { map, tap } from "rxjs";
+import { exhaustMap, map, take, tap } from "rxjs";
+import { AuthService } from "../auth/auth/auth.service";
 
 const API_BASE_URL = 'https://ng-complete-guide-3129d-default-rtdb.firebaseio.com/';
 
@@ -11,7 +12,8 @@ const API_BASE_URL = 'https://ng-complete-guide-3129d-default-rtdb.firebaseio.co
 export class DataStorageService {
 
   constructor(private httpClient: HttpClient,
-              private recipeService: RecipeService) {
+              private recipeService: RecipeService,
+              private authService: AuthService) {
   }
 
   storeRecipes() {
@@ -25,8 +27,7 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.httpClient
-      .get<Recipe[]>(API_BASE_URL + '/recipes.json')
+    return this.httpClient.get<Recipe[]>(API_BASE_URL + '/recipes.json')
       .pipe(
         map(recipes => {
           return recipes.map(recipe => ({
