@@ -29,7 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## Env config
 Create the following file exporting the Firebase api key
-`src/app/auth/auth/env.config.ts`
+`src/app/auth/env.config.ts`
 ```typescript
 export const API_KEY = 'XXXXXXXX';
 ```

@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { RecipeService } from "../recipes/recipe.service";
 import { Recipe } from "../recipes/recipe.model";
 import { exhaustMap, map, take, tap } from "rxjs";
-import { AuthService } from "../auth/auth/auth.service";
+import { AuthService } from "../auth/auth.service";
 
 const API_BASE_URL = 'https://ng-complete-guide-3129d-default-rtdb.firebaseio.com/';
 
