@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { BehaviorSubject, Subject, throwError } from "rxjs";
+import { Router } from "@angular/router";
+import { BehaviorSubject, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
+import { environment } from "../../environments/environment"
 
 import { User } from "./user.model";
-import { API_KEY } from "./env.config";
-import { Router } from "@angular/router";
 
 export interface AuthResponseData {
   idToken: string;
@@ -37,7 +37,7 @@ export class AuthService {
   }
 
   signUp(email: string, password: string) {
-    const API_BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + API_KEY;
+    const API_BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.FIREBASE_API_KEY;
 
     return this.httpClient
       .post<AuthResponseData>(API_BASE_URL, {email, password, returnSecureToken: true})
@@ -52,7 +52,7 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    const API_BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + API_KEY;
+    const API_BASE_URL = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.FIREBASE_API_KEY;
 
     return this.httpClient
       .post<AuthResponseData>(API_BASE_URL, {email, password, returnSecureToken: true})
